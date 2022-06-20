@@ -1,0 +1,35 @@
+body{
+    background-color: rgb(104, 104, 104);
+    color: aliceblue;
+    font-size: 50px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    text-align: center;
+    margin-top: 100px;
+}
+
+#counter, #time {
+    color: aliceblue;
+    font-size: 30px;
+    margin-top: 50px;
+}
+
+div {
+    margin: 10px;
+}
+
+span {
+    width: 80px;
+    margin: 10px;
+    padding: 10px;
+}
+
+button {
+    margin: 50 20;
+    color: aliceblue;
+    background-color: rgb(8, 90, 62);
+    font-size: 20px;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 25px;
+}
+
