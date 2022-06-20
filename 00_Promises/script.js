@@ -66,8 +66,6 @@ setInterval(() => {
 
 
 const getMeAPromise = () => {
-    // ... Your code goes here 
-    // ... Let's assume this a some fetch from another server
 
     let data;
     data = fetch('./data.json');
@@ -75,67 +73,56 @@ const getMeAPromise = () => {
     return data;
 }
 
-const promise = getMeAPromise();
+const promise = getMeAPromise()
+console.log(promise);
 
-console.log(promise); // Printed first 
-
-// We can nest as many 'then' as required 
-
-
+// Nested catch 
 promise.then((result) => {
-    console.log('Resolved', result); // Printed Second 
-
-    // console.log('My JSON data is ', result.json());
-    // Here result.json() is still a promise
-    // We have to resolve the promise again to get the data we want
-
-    // Printed after all the nested then(s);
-    // result.json().then((data) => {
-    //     console.log('Data Json recieved');
-    //     console.log(`Name: ${data.Name}, Roll: ${data.Roll} `);
-    // }).catch((err) => {
-    //     console.log(err);
-    // })
-
-    // However this nesting is not the preferred way of nesting and 
-    // thus we use this flat way of nesting in which we simply return
-    // the promise if they depend on each other
+    console.log('Resolved', result);
 
     return result.json();
 
-    // With every then, we have 3 option 
-
-    // 1. Return a static value
-    // 2. Return a Promise 
-    // 3. Don't return anything 
-
-    // Not returning anything is same as returning undefined 
-    // return undefined
-    // and thus option 1 and 3 are almost the same 
-
-
+}).catch((err) => {
+    console.log(err);
 
 }).then((data1) => {
-    console.log('Resolved data1', data1);
-
-    // data1 is an object now, so returning a static value for 
-    // further then blocks 
+    console.log('Pass 1');
 
     return data1;
+}).catch((err) => {
+    console.log(err);
+
 }).then((data2) => {
-    console.log('Recieved data2', data2);
+    console.log('Pass 2');
+    throw new Error('Error 2');
+
+    // If any node of the chain throws an error, the further nodes are not executed
+    // and the control jumps to the nearest catch block  
+
+    // So if we wish to handle each and every then seprately, we need to add multiple 
+    // catch block right after every then.
 
     return data2;
+}).catch((err) => {
+    console.log(err);
+
 }).then((data3) => {
-    console.log('data1, 2 and 3 are all the same', data3);
+    console.log('Pass 3');
 
     return data3;
+}).catch((err) => {
+    console.log(err);
+    // err also returns an undefined by default
+
 }).then((finalData) => {
-    console.log('Final data recieved', finalData);
-    
+    console.log('Pass 4', finalData);
+
     return undefined;
 }).catch((err) => {
-    console.log('Error');
     console.log(err);
+
 });
+
+// However this way of handling multiple catch do look messy and is difficult 
+// to maintain 
 
